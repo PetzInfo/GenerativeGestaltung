@@ -23,17 +23,21 @@ void genRaster(int tiles, float tileWidth){
       float tileCenterY = y * tileWidth + tileWidth / 2;  // Calculate y-coordinate of ellipse center
       
       fill(0);
-      float shapeSize = tileWidth/2;
-      print(calculateBrightness(tileCenterX, tileCenterY));
+      float shapeSize = 5;
+      print(calculateBrightness(tileCenterX, tileCenterY, tileWidth) + "\n");
+  
       ellipse(tileCenterX, tileCenterY, shapeSize, shapeSize);
       
     }
   }
 };
 
-float calculateBrightness(float x, float y) {
+float calculateBrightness(float x, float y, float tileWidth) {
   color c = img.get(int(x), int(y));  // Get the color of the pixel at (x, y)
-  return brightness(c);               // Calculate and return the brightness of the color
+  float brightnessValue = brightness(c);  // Calculate the brightness of the color
+  // Map the brightness value (0-255) to the range (0, tileWidth)
+  float brightnessAsHeight = map(brightnessValue, 0, 255, 0, tileWidth);
+  return brightnessAsHeight;
 }
 
 
