@@ -9,7 +9,7 @@ void setup() {
 
 void draw() {
   background(#f1f1f1);
-  int tiles = 10;
+  int tiles = 100;
   float tileWidth = (float)width / tiles;  // Calculate tile width as float for precise division
   
   genRaster(tiles, tileWidth);
@@ -21,12 +21,13 @@ void genRaster(int tiles, float tileWidth){
     for (int y = 0; y < tiles; y++) {
       float tileCenterX = x * tileWidth + tileWidth / 2;  // Calculate x-coordinate of ellipse center
       float tileCenterY = y * tileWidth + tileWidth / 2;  // Calculate y-coordinate of ellipse center
+      float tileFloorY = y * tileWidth + tileWidth; 
+      
       
       fill(0);
       float shapeSize = 5;
-      print(calculateBrightness(tileCenterX, tileCenterY, tileWidth) + "\n");
-  
-      ellipse(tileCenterX, tileCenterY, shapeSize, shapeSize);
+      float adjustedY = tileFloorY - calculateBrightness(tileCenterX, tileCenterY, tileWidth);
+      ellipse(tileCenterX, adjustedY, shapeSize, shapeSize);
       
     }
   }
